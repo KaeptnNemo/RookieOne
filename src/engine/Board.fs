@@ -45,3 +45,59 @@ with
 
     /// instance version of Pos.isValid
     member self.IsValid() = Pos.isValid self
+
+    /// go one step up (from white's perspective)
+    static member up self =
+        { x = self.x; y = self.y + 1}
+
+    /// go one step down (from white's perspective)
+    static member down self =
+        { x = self.x; y = self.y - 1}
+
+    /// go one step left (from white's perspective)
+    static member left self =
+        { x = self.x - 1; y = self.y}
+
+    /// go one step right (from white's perspective)
+    static member right self =
+        { x = self.x + 1; y = self.y}
+
+    /// go one step up and left (from white's perspective)
+    static member upLeft self =
+        Pos.up >> Pos.left
+
+    /// go one step up and right (from white's perspective)
+    static member upRight self =
+        Pos.up >> Pos.right
+
+    /// go one step down and left (from white's perspective)
+    static member downLeft self =
+        Pos.down >> Pos.left
+
+    /// go one step down and right (from white's perspective)
+    static member downRight self =
+        Pos.down >> Pos.right
+
+    /// instance version of Pos.up
+    member self.Up() = Pos.up self
+
+    /// instance version of Pos.down
+    member self.Down() = Pos.down self
+
+    /// instance version of Pos.left
+    member self.Left() = Pos.left self
+
+    /// instance version of Pos.right
+    member self.Right() = Pos.right self 
+
+    /// instance version of Pos.upLeft
+    member self.UpLeft() = Pos.upLeft self
+
+    /// instance version of Pos.upRight
+    member self.UpRight() = Pos.upRight self
+
+    /// instance version of Pos.downLeft
+    member self.DownLeft() = Pos.downLeft self
+
+    /// instance version of Pos.downRight
+    member self.DownRight() = Pos.downRight self
