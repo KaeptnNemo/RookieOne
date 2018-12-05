@@ -78,6 +78,38 @@ with
     static member downRight self =
         Pos.down >> Pos.right
 
+    /// move in knight pattern (further left than up)
+    static member knightLeftUp self =
+        Pos.left >> Pos.upLeft
+
+    /// move in knight pattern (further up than left)
+    static member knightUpLeft self =
+        Pos.up >> Pos.upLeft
+
+    /// move in knight pattern (further right than up)
+    static member knightRightUp self =
+        Pos.right >> Pos.upRight
+
+    /// move in knight pattern (further up than right)
+    static member knightUpRight self =
+        Pos.up >> Pos.upRight
+
+    /// move in knight pattern (further left than down)
+    static member knightLeftDown self =
+        Pos.left >> Pos.downLeft
+
+    /// move in knight pattern (further down than left)
+    static member knightDownLeft self =
+        Pos.down >> Pos.downLeft
+
+    /// move in knight pattern (further right than down)
+    static member knightRightDown self =
+        Pos.right >> Pos.downRight
+
+    /// move in knight pattern (further down than right)
+    static member knightDownRight self =
+        Pos.down >> Pos.downRight
+
     /// instance version of Pos.up
     member self.Up() = Pos.up self
 
@@ -101,3 +133,27 @@ with
 
     /// instance version of Pos.downRight
     member self.DownRight() = Pos.downRight self
+
+    /// instance version of Pos.knightLeftUp
+    member self.KnightLeftUp() = Pos.knightLeftUp self
+
+    /// instance version of Pos.knightUpLeft
+    member self.KnightUpLeft() = Pos.knightUpLeft self
+
+    /// instance version of Pos.knightRightUp
+    member self.KnightRightUp() = Pos.knightRightUp self
+
+    /// instance version of Pos.knightUpRight
+    member self.KnightUpRight() = Pos.knightUpRight self
+
+    /// instance version of Pos.knightLeftDown
+    member self.KnightLeftDown() = Pos.knightLeftDown self
+
+    /// instance version of Pos.knightDownLeft
+    member self.KnightDownLeft() = Pos.knightDownLeft self
+
+    /// instance version of Pos.knightRightDown
+    member self.KnightRightDown() = Pos.knightRightDown self
+
+    /// instance version of Pos.knightDownRight
+    member self.KnightDownRight() = Pos.knightDownRight self
