@@ -54,14 +54,14 @@ with
     member self.Color() = Pos.color self
 
     /// test whether a position is black
-    static member isBlack self =
+    static member isBlack =
         Pos.color >> (=) Black
 
     /// instance version of Pos.isBlack
     member self.IsBlack() = Pos.isBlack self
 
     /// test whether a position is white
-    static member isWhite self =
+    static member isWhite =
         Pos.color >> (=) White
 
     /// instance version of Pos.isWhite
@@ -84,51 +84,51 @@ with
         { x = self.x + 1; y = self.y}
 
     /// go one step up and left (from white's perspective)
-    static member upLeft self =
+    static member upLeft =
         Pos.up >> Pos.left
 
     /// go one step up and right (from white's perspective)
-    static member upRight self =
+    static member upRight =
         Pos.up >> Pos.right
 
     /// go one step down and left (from white's perspective)
-    static member downLeft self =
+    static member downLeft =
         Pos.down >> Pos.left
 
     /// go one step down and right (from white's perspective)
-    static member downRight self =
+    static member downRight =
         Pos.down >> Pos.right
 
     /// move in knight pattern (further left than up)
-    static member knightLeftUp self =
+    static member knightLeftUp =
         Pos.left >> Pos.upLeft
 
     /// move in knight pattern (further up than left)
-    static member knightUpLeft self =
+    static member knightUpLeft =
         Pos.up >> Pos.upLeft
 
     /// move in knight pattern (further right than up)
-    static member knightRightUp self =
+    static member knightRightUp =
         Pos.right >> Pos.upRight
 
     /// move in knight pattern (further up than right)
-    static member knightUpRight self =
+    static member knightUpRight =
         Pos.up >> Pos.upRight
 
     /// move in knight pattern (further left than down)
-    static member knightLeftDown self =
+    static member knightLeftDown =
         Pos.left >> Pos.downLeft
 
     /// move in knight pattern (further down than left)
-    static member knightDownLeft self =
+    static member knightDownLeft =
         Pos.down >> Pos.downLeft
 
     /// move in knight pattern (further right than down)
-    static member knightRightDown self =
+    static member knightRightDown =
         Pos.right >> Pos.downRight
 
     /// move in knight pattern (further down than right)
-    static member knightDownRight self =
+    static member knightDownRight =
         Pos.down >> Pos.downRight
 
     /// instance version of Pos.up
