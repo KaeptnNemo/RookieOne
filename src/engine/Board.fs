@@ -46,6 +46,27 @@ with
     /// instance version of Pos.isValid
     member self.IsValid() = Pos.isValid self
 
+    /// get the color of a position
+    static member color self =
+        if self.x % 2 = 0 && self.y % 2 = 0 then Black else White
+
+    /// instance version of Pos.color
+    member self.Color() = Pos.color self
+
+    /// test whether a position is black
+    static member isBlack self =
+        Pos.color >> (=) Black
+
+    /// instance version of Pos.isBlack
+    member self.IsBlack() = Pos.isBlack self
+
+    /// test whether a position is white
+    static member isWhite self =
+        Pos.color >> (=) White
+
+    /// instance version of Pos.isWhite
+    member self.IsWhite = Pos.isWhite self
+
     /// go one step up (from white's perspective)
     static member up self =
         { x = self.x; y = self.y + 1}
