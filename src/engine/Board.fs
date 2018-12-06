@@ -178,3 +178,66 @@ with
 
     /// instance version of Pos.knightDownRight
     member self.KnightDownRight() = Pos.knightDownRight self
+
+
+// ---------------------------------------------------------------------------------------------- //
+
+
+module Board =
+
+    let rec private dirSeq dir pos =
+        seq {
+            let next = dir pos
+            if Pos.isValid next then
+                yield  next
+                yield! dirSeq dir next
+        }
+
+    let forward color =
+        match color with
+        | Black -> dirSeq Pos.down
+        | White -> dirSeq Pos.up
+
+    let backward color =
+        forward (Color.other color)
+
+    let right color pos =
+        match color with
+        | Black -> dirSeq Pos.left
+        | White -> dirSeq Pos.right
+
+    let left color =
+        right (Color.other color)
+
+    let forwardLeft color =
+        match color with
+        | Black -> dirSeq Pos.downRight
+        | White -> dirSeq Pos.upLeft
+
+    let forwardRight color =
+        match color with
+        | Black -> dirSeq Pos.downLeft
+        | White -> dirSeq Pos.upRight
+
+    let backwardLeft color =
+        forwardRight (Color.other color)
+
+    let backwardRight color =
+        forwardLeft (Color.other color)
+
+    let knight pos =
+        let patterns = [
+            Pos.knightUpLeft
+            Pos.knightLeftUp
+            Pos.knightUpRight
+            Pos.knightRightUp
+            Pos.knightDownLeft
+            Pos.knightLeftDown
+            Pos.knightDownRight
+            Pos.knightRightDown
+        ]
+        seq {
+            for p in patterns do
+                let newPos = p pos
+                if Pos.isValid newPos then yield newPos
+        }
