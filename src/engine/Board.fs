@@ -183,8 +183,12 @@ with
 // ---------------------------------------------------------------------------------------------- //
 
 
+/// contains functions to produce a sequence of positions
+/// from a given position and for a given color
 module Board =
 
+    // private helper function
+    // applies @dir to generate the next positions in the sequence
     let rec private dirSeq dir pos =
         seq {
             let next = dir pos
@@ -193,38 +197,47 @@ module Board =
                 yield! dirSeq dir next
         }
 
+    /// forward sequence for given color and position
     let forward color =
         match color with
         | Black -> dirSeq Pos.down
         | White -> dirSeq Pos.up
 
+    /// backward sequence for given color and position
     let backward color =
         forward (Color.other color)
 
+    /// right sequence for given color and position
     let right color pos =
         match color with
         | Black -> dirSeq Pos.left
         | White -> dirSeq Pos.right
 
+    /// left sequence for given color and position
     let left color =
         right (Color.other color)
 
+    /// diagonal forward left sequence for given color and position
     let forwardLeft color =
         match color with
         | Black -> dirSeq Pos.downRight
         | White -> dirSeq Pos.upLeft
 
+    /// diagonal forward right sequence for given color and position
     let forwardRight color =
         match color with
         | Black -> dirSeq Pos.downLeft
         | White -> dirSeq Pos.upRight
 
+    /// diagonal backward left sequence for given color and position
     let backwardLeft color =
         forwardRight (Color.other color)
 
+    /// diagonal backward right sequence for given color and position
     let backwardRight color =
         forwardLeft (Color.other color)
 
+    /// sequence of positions reachable by a knight from pos
     let knight pos =
         let patterns = [
             Pos.knightUpLeft
