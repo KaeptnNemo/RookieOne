@@ -7,6 +7,11 @@ namespace RookieOne.Engine
 type Pos = { x: int; y: int}
 with
 
+    static member toAddr self =
+        self.x * 8 + self.y
+
+    member self.ToAddr() = Pos.toAddr self
+
     /// to tuple of integers (0-7 each)
     static member toInteger self =
         (self.x, self.y)
@@ -36,7 +41,7 @@ with
 
     /// construct pos from readable character and integer
     static member fromReadable c y =
-        let x = c |> System.Char.ToLower |> int |> (-) (int 'a')
+        let x = c |> System.Char.ToLower |> int |> (fun c -> c - int 'a')
         { x = x; y = y-1 }
 
     /// check whether a pos is within the boards bounds
