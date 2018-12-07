@@ -5,6 +5,13 @@ namespace RookieOne.Engine
 
 /// piece is moved from source to destination
 type Move = { piece: Piece; src: Pos; dst: Pos }
+with
+    static member create p s d = { piece = p; src = s; dst = d}
+
+    static member toString self =
+        sprintf "%O: %O -> %O" self.piece self.src self.dst
+
+    override self.ToString() = Move.toString self
 
 /// state of a game (all pieces and positions)
 type State = {
