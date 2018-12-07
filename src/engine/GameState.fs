@@ -4,34 +4,34 @@ namespace RookieOne.Engine
 
 
 /// piece is moved from source to destination
-type Move = { piece: Piece; src: Pos; dst: Pos }
+type Move = { Piece: Piece; Src: Pos; Dst: Pos }
 with
-    static member create p s d = { piece = p; src = s; dst = d}
+    static member create p s d = { Piece = p; Src = s; Dst = d}
 
     static member toString self =
-        sprintf "%O: %O -> %O" self.piece self.src self.dst
+        sprintf "%O: %O -> %O" self.Piece self.Src self.Dst
 
     override self.ToString() = Move.toString self
 
 /// state of a game (all pieces and positions)
 type State = {
     // how many moves have been played?
-    moveCount: int
+    MoveCount: int
 
     // the actial board
-    board: Piece Option array
+    Board: Piece Option array
 
     // lists of removed pieces
-    removedWhite: Piece list
-    removedBlack: Piece list
+    RemovedWhite: Piece list
+    RemovedBlack: Piece list
     
     // can king and rook still switch positions?
-    blackKingMoved:  bool
-    whiteKingMoved:  bool
-    blackRookLMoved: bool
-    whiteRookLMoved: bool
-    blackRookRMoved: bool
-    whiteRookRMoved: bool
+    BlackKingMoved:  bool
+    WhiteKingMoved:  bool
+    BlackRookLMoved: bool
+    WhiteRookLMoved: bool
+    BlackRookRMoved: bool
+    WhiteRookRMoved: bool
 }
 with    
 
@@ -53,7 +53,7 @@ with
             for y = 8 downto 1 do
                 yield (sprintf "%i " y)
                 for x = 'A' to 'H' do
-                    let f = self.board.[State.fancyArrayAddr x y]
+                    let f = self.Board.[State.fancyArrayAddr x y]
                     yield
                         match f with
                         | None   -> "|  "
@@ -105,14 +105,14 @@ with
 
     /// the default game state
     static member createDefault = {
-        moveCount = 0
-        board = State.createDefaultArray()
-        removedBlack = []
-        removedWhite = []
-        blackKingMoved = false
-        whiteKingMoved = false
-        blackRookLMoved = false
-        whiteRookLMoved = false
-        blackRookRMoved = false
-        whiteRookRMoved = false
+        MoveCount = 0
+        Board = State.createDefaultArray()
+        RemovedBlack = []
+        RemovedWhite = []
+        BlackKingMoved  = false
+        WhiteKingMoved  = false
+        BlackRookLMoved = false
+        WhiteRookLMoved = false
+        BlackRookRMoved = false
+        WhiteRookRMoved = false
     }

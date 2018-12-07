@@ -4,25 +4,25 @@ namespace RookieOne.Engine
 
 
 /// position in a board
-type Pos = { x: int; y: int}
+type Pos = { X: int; Y: int}
 with
 
     static member toAddr self =
-        self.x * 8 + self.y
+        self.X * 8 + self.Y
 
     member self.ToAddr() = Pos.toAddr self
 
     /// to tuple of integers (0-7 each)
     static member toInteger self =
-        (self.x, self.y)
+        (self.X, self.Y)
 
     /// instance version of Pos.toInteger
     member self.ToInteger() = Pos.toInteger self
 
     /// to tuple of char and interger ('A'-'H',1-8)
     static member toReadable self =
-        let rx = self.x |> (+) (int 'A') |> char
-        let ry = self.y + 1
+        let rx = self.X |> (+) (int 'A') |> char
+        let ry = self.Y + 1
         (rx,ry)
 
     /// instance version of Pos.toReadable
@@ -37,23 +37,23 @@ with
     override self.ToString() = Pos.toString self
 
     /// construct pos from two integers
-    static member fromInteger x y = { x = x; y = y }
+    static member fromInteger x y = { X = x; Y = y }
 
     /// construct pos from readable character and integer
     static member fromReadable c y =
         let x = c |> System.Char.ToLower |> int |> (fun c -> c - int 'a')
-        { x = x; y = y-1 }
+        { X = x; Y = y-1 }
 
     /// check whether a pos is within the boards bounds
     static member isValid self =
-        self.x >= 0 && self.x < 8 && self.y >= 0 && self.y < 8
+        self.X >= 0 && self.X < 8 && self.Y >= 0 && self.Y < 8
 
     /// instance version of Pos.isValid
     member self.IsValid() = Pos.isValid self
 
     /// get the color of a position
     static member color self =
-        if self.x % 2 = 0 && self.y % 2 = 0 then Black else White
+        if self.X % 2 = 0 && self.Y % 2 = 0 then Black else White
 
     /// instance version of Pos.color
     member self.Color() = Pos.color self
@@ -74,19 +74,19 @@ with
 
     /// go one step up (from white's perspective)
     static member up self =
-        { x = self.x; y = self.y + 1}
+        { X = self.X; Y = self.Y + 1}
 
     /// go one step down (from white's perspective)
     static member down self =
-        { x = self.x; y = self.y - 1}
+        { X = self.X; Y = self.Y - 1}
 
     /// go one step left (from white's perspective)
     static member left self =
-        { x = self.x - 1; y = self.y}
+        { X = self.X - 1; Y = self.Y}
 
     /// go one step right (from white's perspective)
     static member right self =
-        { x = self.x + 1; y = self.y}
+        { X = self.X + 1; Y = self.Y}
 
     /// go one step up and left (from white's perspective)
     static member upLeft =
