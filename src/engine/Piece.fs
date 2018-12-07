@@ -50,7 +50,7 @@ with
     static member toString self =
         match self with
         | Pawn   -> "P"
-        | Knight -> "K"
+        | Knight -> "N"
         | Bishop -> "B"
         | Rook   -> "R"
         | Queen  -> "Q"
@@ -76,7 +76,7 @@ with
     static member fromString (s: string) =
         match s.ToLower() with
         | "p" | "pawn"   -> Pawn
-        | "k" | "knight" -> Knight
+        | "n" | "knight" -> Knight
         | "b" | "bishop" -> Bishop
         | "r" | "rook"   -> Rook
         | "q" | "queen"  -> Queen
