@@ -116,3 +116,49 @@ with
         BlackRookRMoved = false
         WhiteRookRMoved = false
     }
+
+    static member applyMove self move =
+        if (move.Src |> Pos.isValid |> not) || (move.Dst |> Pos.isValid |> not) then
+            failwith (sprintf "Position out of bounds: %O" move)
+        let srcAddr = Pos.toAddr move.Src
+        let dstAddr = Pos.toAddr move.Dst
+        match self.Board.[srcAddr] with
+        | None -> failwith (sprintf "No piece to be moved here: %O" move)
+        | Some p when (p <> move.Piece) -> failwith (sprintf "Wrong piece found: %O" move)
+        | _ -> ()
+
+        let board = Array.copy self.Board
+        let dstPiece = self.Board.[dstAddr]
+        board.[dstAddr] <- Some move.Piece
+        board.[srcAddr] <- None
+
+        let (rmB,rmW) =
+            match dstPiece with
+            | None   -> (self.RemovedBlack, self.RemovedWhite)
+            | Some p ->
+                match p.Color with
+                | Black -> (p :: self.RemovedBlack, self.RemovedWhite)
+                | White -> (self.RemovedBlack, p :: self.RemovedWhite)
+
+        let br = Piece.create Black Rook
+        let wr = Piece.create White Rook
+        let topLeft  = Pos.fromReadable 'A' 8
+        let topRight = Pos.fromReadable 'H' 8
+        let botLeft  = Pos.fromReadable 'A' 1
+        let botRight = Pos.fromReadable 'H' 1
+        {
+            MoveCount = self.MoveCount + 1
+            Board = board
+            RemovedBlack = rmB
+            RemovedWhite = rmW
+            BlackKingMoved  = self.BlackKingMoved  || move.Piece = (Piece.create Black King)
+            WhiteKingMoved  = self.WhiteKingMoved  || move.Piece = (Piece.create White King)
+            BlackRookLMoved = self.BlackRookLMoved || (move.Piece = br && move.Src = topRight)
+            WhiteRookLMoved = self.WhiteRookLMoved || (move.Piece = wr && move.Src = botLeft)
+            BlackRookRMoved = self.BlackRookRMoved || (move.Piece = br && move.Src = topLeft)
+            WhiteRookRMoved = self.WhiteRookRMoved || (move.Piece = wr && move.Src = botRight)
+        }
+
+
+
+
