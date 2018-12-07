@@ -7,6 +7,9 @@ type Move = { Piece: Piece; Src: Pos; Dst: Pos }
 with
     static member create p s d = { Piece = p; Src = s; Dst = d }
 
+    static member createReadable c t sc sy dc dy =
+        Move.create (Piece.create c t) (Pos.fromReadable sc sy) (Pos.fromReadable dc dy)
+
     static member toString self =
         sprintf "%O: %O -> %O" self.Piece.Type self.Src self.Dst
 
