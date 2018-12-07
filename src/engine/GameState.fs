@@ -35,14 +35,30 @@ with
     /// format a game state as string
     static member toString self =
         seq {
+            // top row A - H
+            yield "  "
+            for x = 'A' to 'H' do yield (sprintf " %c " x)
+            yield "\n  "
+            for i in 0 .. 7 do yield "+--"
+            yield "+\n"
+
+            // actual board
             for y = 8 downto 1 do
+                yield (sprintf "%i " y)
                 for x = 'A' to 'H' do
                     let f = self.board.[State.fancyArrayAddr x y]
                     yield
                         match f with
-                        | None   -> "  "
-                        | Some p -> p.ToString()
-                yield "\n"
+                        | None   -> "|  "
+                        | Some p -> "|" + p.ToString()
+                yield (sprintf "| %i\n  " y)
+                for i in 0 .. 7 do yield "+--"
+                yield "+\n"
+
+            // bottom row A -H
+            yield "  "
+            for x = 'A' to 'H' do yield (sprintf " %c " x)
+            yield "\n"
         }
         |> Seq.fold (+) ""
 
