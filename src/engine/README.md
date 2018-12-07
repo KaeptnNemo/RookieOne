@@ -17,7 +17,7 @@ Contains helper functions to work with a chess board.
 
 ### [GameState.fs](GameState.fs)
 
-Contains the types `GameState`, `Move` and helper functions to work with
+Contains the types `State`, `Move` and helper functions to work with
 those and a game's history. 
 
 ### [Rules.fs](Rules.fs)
