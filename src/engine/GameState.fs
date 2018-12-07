@@ -131,13 +131,29 @@ with
         board.[dstAddr] <- Some move.Piece
         board.[srcAddr] <- None
 
-        let (rmB,rmW) =
+        // prepend captured piece to list
+        let capture p =
+            match p.Color with
+            | Black -> (p :: self.RemovedBlack, self.RemovedWhite)
+            | White -> (self.RemovedBlack, p :: self.RemovedWhite)
+
+        // check whether a piece needs to be captured
+        let (rmB,rmW) = // new lists of removed pieces
             match dstPiece with
-            | None   -> (self.RemovedBlack, self.RemovedWhite)
-            | Some p ->
-                match p.Color with
-                | Black -> (p :: self.RemovedBlack, self.RemovedWhite)
-                | White -> (self.RemovedBlack, p :: self.RemovedWhite)
+            // dst was empty -> check for en-passent
+            | None ->
+                let backAddr =
+                    move.Dst |> Board.backward move.Piece.Color |> Seq.head |> Pos.toAddr
+                if move.Piece.Type = PieceType.Pawn && board.[backAddr] <> None then
+                    // en-passent -> capture piece at backAddr
+                    let p = board.[backAddr] |> Option.get
+                    board.[backAddr] <- None
+                    capture p
+                else
+                    (self.RemovedBlack, self.RemovedWhite)
+            // dst was not empty -> 
+            | Some p -> capture p
+                
 
         let br = Piece.create Black Rook
         let wr = Piece.create White Rook
