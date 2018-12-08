@@ -119,7 +119,7 @@ with
         WhiteRookRMoved = false
     }
 
-    static member applyMove self move =
+    static member applyMove copyArray self move =
         if (move.Src |> Pos.isValid |> not) || (move.Dst |> Pos.isValid |> not) then
             failwith (sprintf "Position out of bounds: %O" move)
         let srcAddr = Pos.toAddr move.Src
@@ -129,7 +129,7 @@ with
         | Some p when (p <> move.Piece) -> failwith (sprintf "Wrong piece found: %O" move)
         | _ -> ()
 
-        let board = Array.copy self.Board
+        let board = self.Board |> if copyArray then Array.copy else id 
         let dstPiece = self.Board.[dstAddr]
         board.[dstAddr] <- Some move.Piece
         board.[srcAddr] <- None

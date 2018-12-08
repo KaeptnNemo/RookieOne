@@ -11,7 +11,7 @@ let main args =
         Move.createReadable White Pawn 'E' 5 'D' 6
     ]
 
-    let newState = List.fold State.applyMove state moves
+    let newState = List.fold (State.applyMove false) state moves
     printf  "%O" state
     printfn "#############################"
     printf  "%O" newState
